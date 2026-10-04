@@ -14,9 +14,54 @@ env:
   DOCKER_BUILD_SUMMARY: false
 
 jobs:
+  changes:
+    name: Check for source changes
+    runs-on: ubuntu-latest
+    outputs:
+      source_changed: ${{ steps.resolve.outputs.source_changed }}
+    steps:
+      # Full history: paths-filter diffs the push base against HEAD.
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed files
+        id: filter
+        uses: dorny/paths-filter@v4
+        with:
+          # 'some-with-excludes' keeps negations effective: a file matches
+          # only if it hits '**' AND none of the negated patterns.
+          predicate-quantifier: 'some-with-excludes'
+          filters: |
+            source:
+              - '**'
+              - '!deployment/**'
+              - '!target/**'
+              - '!.idea/**'
+
+      - name: Resolve source_changed
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          EVENT_NAME: ${{ github.event_name }}
+          FILTER_HIT: ${{ steps.filter.outputs.source }}
+        run: |
+          # Tags are release events and manual runs are explicit requests:
+          # always build. Otherwise require a real source file to change.
+          if [ "$REF_TYPE" = "tag" ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "source_changed=true" >> "$GITHUB_OUTPUT"
+          elif [ "$FILTER_HIT" = "true" ]; then
+            echo "source_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "source_changed=false" >> "$GITHUB_OUTPUT"
+            echo "Only deployment/target/.idea files changed - skipping build and image jobs."
+          fi
+
   build:
     name: Build and test JAR
     runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.source_changed == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,11 +93,12 @@ jobs:
   docker:
     name: Build and push Docker image
     runs-on: ubuntu-latest
-    # Publish only for pushes to the branch or a release tag; PRs still build the
-    # image but never push, so forks cannot poison the registry.
-    needs: build
+    needs: [changes, build]
+    if: needs.changes.outputs.source_changed == 'true'
     permissions:
       contents: read
+    # Publish only for pushes to the branch or a release tag; PRs still build the
+    # image but never push, so forks cannot poison the registry.
     steps:
       - name: Checkout
         uses: actions/checkout@v4
