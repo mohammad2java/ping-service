@@ -10,7 +10,10 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ github.repository }}
+  # Pinned to the Docker Hub namespace explicitly. Using ${{ github.repository }}
+  # here would tag the image with the GitHub repo path (mohammad2java/ping-service),
+  # which is usually not the Docker Hub account that owns the credentials.
+  IMAGE_NAME: amir87/ping-service
   DOCKER_BUILD_SUMMARY: false
 
 jobs:
