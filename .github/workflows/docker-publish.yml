@@ -10,9 +10,6 @@ on:
 
 env:
   REGISTRY: docker.io
-  # Pinned to the Docker Hub namespace explicitly. Using ${{ github.repository }}
-  # here would tag the image with the GitHub repo path (mohammad2java/ping-service),
-  # which is usually not the Docker Hub account that owns the credentials.
   IMAGE_NAME: amir87/ping-service
   DOCKER_BUILD_SUMMARY: false
 
@@ -76,12 +73,13 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # Two tags only: `latest` and the 7-character commit hash.
+          # `latest` is written explicitly because metadata-action only adds it
+          # automatically for semver/tag events, not for plain branch pushes.
+          # The enable= guard keeps `latest` off PR builds, which never push.
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha,format=long
+            type=raw,value=latest,enable=${{ github.event_name != 'pull_request' }}
+            type=sha,format=short
           labels: |
             org.opencontainers.image.title=${{ github.event.repository.name }}
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
