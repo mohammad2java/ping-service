@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pingservice
+  namespace: argocd
+  finalizers:
+    # removes the Application resource (and by default the deployed resources)
+    # from the Argo CD server when this Application is deleted
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/part-of: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/mohammad2java/ping-service.git
+    targetRevision: master
+    # chart root: must contain Chart.yaml. Argo CD runs `helm template` here,
+    # so values.yaml in this folder is picked up automatically as .Values
+    path: deployment/k8s/pingservice
+    helm:
+      releaseName: pingservice
+      # extra values files, relative to `path`
+      # valueFiles:
+      #   - values-prod.yaml
+      # params go here instead of editing the chart
+      # parameters:
+      #   - name: image.tag
+      #     value: "1.0.0-RELEASE"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pingservice
+
+  syncPolicy:
+    automated:
+      # delete cluster resources that are no longer in git
+      prune: true
+      # revert manual changes made directly on the cluster
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - PruneLast=true

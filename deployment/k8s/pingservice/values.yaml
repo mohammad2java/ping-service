@@ -1,0 +1,30 @@
+replicaCount: 3
+
+nameOverride: ""
+
+image:
+  repository: amir87/ping-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: pingservice.local
+      paths:
+        - path: /
+          pathType: Prefix
+          port: 80
+
+config:
+  APP_NAME: ping-service
+  APP_ENV: local
+  SERVER_PORT: "8080"
