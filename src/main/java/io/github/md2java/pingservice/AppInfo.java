@@ -29,6 +29,9 @@ public class AppInfo implements InfoContributor {
     @Value("${app.version:" + UNKNOWN + "}")
     private String version;
 
+        @Value("${app.commit:" + UNKNOWN + "}")
+        private String commit;
+
     @Override
     public void contribute(Info.Builder builder) {
         Duration uptime = Duration.between(startedAt, Instant.now());
@@ -37,6 +40,7 @@ public class AppInfo implements InfoContributor {
         builder.withDetail("uptime", format(uptime));
         builder.withDetail("uptimeSeconds", uptime.getSeconds());
         builder.withDetail("version", version);
+        builder.withDetail("commit", commit);
     }
 
     /**
