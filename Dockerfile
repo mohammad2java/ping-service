@@ -9,6 +9,7 @@ WORKDIR /app
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
+COPY .git ./.git
 
 RUN chmod +x mvnw
 
