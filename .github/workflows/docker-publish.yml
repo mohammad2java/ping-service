@@ -41,6 +41,7 @@ jobs:
               - '!.idea/**'
 
       - name: Resolve source_changed
+        id: resolve
         env:
           REF_TYPE: ${{ github.ref_type }}
           EVENT_NAME: ${{ github.event_name }}
