@@ -49,3 +49,24 @@ We have 2 work in this repo.
 
 
 
+
+
+Based on your previous contributions and the appraisal categories shown in the image, here are simple, professional comments suitable for a Senior Technical Engineer appraisal.
+
+**1. Quality of Work – Rating: 4**
+
+Consistently delivered quality work with a focus on reusable, configurable, and maintainable solutions. Developed major components of the BDM ETL Tool from scratch and ensured proper testing, including handling large datasets containing lakhs of records. Focused on understanding requirements before implementation, following coding standards, and delivering reliable solutions. Also took initiatives to improve existing processes through automation and technical improvements.
+
+**2. Collaboration Within the Team – Rating: 4**
+
+Actively collaborated with team members and Business Analysts to understand requirements, resolve technical queries, and provide the required legacy data for business-rule development and mapping activities. Conducted multiple KT sessions, technical demonstrations, and feature walkthroughs to share knowledge about newly developed components and POCs. Also ensured proper knowledge transfer before planned block leave to maintain project continuity and help the team work independently.
+
+**3. Attitudes / Mindset – Rating: 4**
+
+Maintained a positive and proactive approach towards work and took ownership of assigned responsibilities. Always focused on finding better technical solutions and took initiatives in areas like Liquibase automation, generic Excel generation, DUS automation, and reusable database extraction jobs. Showed willingness to learn new business concepts, explore new technologies, take up challenges, and support team members whenever required. Focused on continuous improvement and successful project delivery.
+
+My suggestion: These comments are appropriate for a rating of 4 because they demonstrate consistent delivery, ownership, collaboration, and initiative without sounding exaggerated.
+
+
+
+
