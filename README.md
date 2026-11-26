@@ -69,4 +69,25 @@ My suggestion: These comments are appropriate for a rating of 4 because they dem
 
 
 
+Based on your BDM ETL Tool development work and the appraisal details shared earlier, below are comments for the remaining fields in simple, professional technical English.
+
+**1. Transverse Contributions – Rating: 3**
+
+Contributed beyond regular development activities by supporting Business Analysts with legacy data analysis, sharing technical knowledge, and helping the team understand business and technical requirements. Conducted multiple KT sessions and feature demonstrations to share knowledge about POCs and newly developed components. Also developed common utilities and automation components that reduced manual effort and improved overall team productivity.
+
+**2. Strengths**
+
+Strong technical ownership, problem-solving skills, and the ability to independently design and develop solutions from scratch. Good understanding of Java, Spring Boot, database concepts, and legacy system integration. Focused on building reusable, configurable, and scalable components. Proactive in identifying improvement areas, exploring new technologies, and supporting team members and Business Analysts.
+
+**3. Areas of Improvement**
+
+Focus on improving architectural design skills and gaining deeper knowledge of commercial lending and banking domain concepts. Improve technical documentation and design discussions to make solutions easier for other team members to understand and maintain. Also, work towards taking more responsibility in technical planning and guiding other developers.
+
+**4. Training Needs**
+
+Advanced training on system architecture, microservices design, performance optimization, and cloud technologies. Further learning on commercial lending business processes, FIS CLS, and ETL architecture would help improve domain knowledge. Also interested in exploring AI-assisted development and automation tools to improve development productivity.
+
+My suggestion: Keep the improvement areas and training needs positive. They should show your willingness to grow from an independent senior developer towards a stronger technical lead/architect role.
+
+
 
